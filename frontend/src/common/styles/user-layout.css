@@ -1,0 +1,48 @@
+header{
+	grid-area: header;
+	padding: 1rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid gray;
+	}
+
+aside{
+	grid-area: aside;
+	border-right: 1px solid gray;
+	padding: 1rem 0;
+	}
+
+.container {
+	display: grid;
+	grid-template-areas: "header header" "aside content";
+	grid-template-rows: 3rem 1fr;
+	grid-template-columns: 15rem 1fr;
+	height: 100%;
+	}
+
+.content {
+	grid-area: content;
+	padding: 1rem;
+	overflow: auto;
+	}
+
+.link{
+	margin: 0.5rem 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 2rem;
+	color: var(--link-text-color);
+	text-decoration: none;
+	}
+
+.link:hover{
+	color: var(--link-text-color-hover);
+	}
+
+.link-active{
+	font-weight: bold;
+	background: var(--link-bg-color-active);
+	border-right: 2px solid var(--link-border-color-active);
+	}

@@ -1,0 +1,22 @@
+*{
+  --text-color: black;
+  --bg-color: white;
+  --link-text-color: black;
+  --link-text-color-hover: #0069c2;
+  --link-bg-color-active: #0085f230;
+  --link-border-color-active: #0069c2;
+  }
+
+body {
+  margin: 0;
+  padding: 0;
+  color: var(--text-color);
+  box-sizing: border-box;
+  background: var(--bg-color);
+  font-family: sans-serif;
+  height: 100vh;
+  }
+
+#root {
+  height: 100%;
+  }
