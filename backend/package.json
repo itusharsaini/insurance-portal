@@ -1,6 +1,37 @@
 {
-  "name": "backend",
+  "name": "insurance-portal-backend",
   "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT"
+  "main": "src/server.ts",
+  "repository": "https://github.com/itusharsaini/insurance-portal",
+  "author": "itusharsaini",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "ts-node-dev --exit-child .",
+    "start": "ts-node ."
+  },
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.13",
+    "@types/moment": "^2.13.0",
+    "@types/multer": "^1.4.7",
+    "@types/node": "^18.0.3",
+    "ts-node": "^10.8.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "apollo-cache-inmemory": "^1.6.6",
+    "apollo-client": "^2.6.10",
+    "apollo-link-context": "^1.0.20",
+    "apollo-link-http": "^1.5.17",
+    "csvtojson": "^2.0.10",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "graphql": "^16.5.0",
+    "graphql-tag": "^2.12.6",
+    "isomorphic-unfetch": "^3.1.0",
+    "moment": "^2.29.4",
+    "multer": "^1.4.5-lts.1"
+  }
 }
