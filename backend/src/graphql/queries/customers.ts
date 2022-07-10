@@ -47,7 +47,7 @@ export const getCustomerById = gql`
 `;
 
 export const getCustomerByCustomerId = gql`
-	query getCustomers($customer_id: Int!) {
+	query getCustomers($customer_id: String!) {
 		customers(where: {customer_id : {_eq: $customer_id }}) {
 			id
 			updated_at

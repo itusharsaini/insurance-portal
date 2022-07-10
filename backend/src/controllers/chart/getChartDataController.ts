@@ -13,7 +13,6 @@ export const getChartDataController = async (request: Request, response: Respons
       if (!startDate || !endDate) {
         return response.status(400).json({message: "BAD_REQUEST", status: 400, error: "Required Params Not Missing"});
       }
-      console.log({startDate, endDate});
       const {data} = await getDataService(getCustomerVehiclePolicyByDate, {_gte: startDate, _lte: endDate});
       const chartObj: any = {};
 

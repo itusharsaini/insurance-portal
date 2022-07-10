@@ -13,7 +13,7 @@ aside{
 	padding: 1rem 0;
 	}
 
-.container {
+.container-custom {
 	display: grid;
 	grid-template-areas: "header header" "aside content";
 	grid-template-rows: 3rem 1fr;

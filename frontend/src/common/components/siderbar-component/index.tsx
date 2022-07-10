@@ -13,14 +13,19 @@ const Index: FC = memo(() => {
 
   return (
     <aside>
-      {routes?.map((route) =>
-        <Link
-          className={activeRoute === route.path ? "link link-active" : "link"}
-          onClick={() => setActiveRoute(route.path)}
-          to={route.path}
-          key={route.key}>
-          {route.label}
-        </Link>
+      {routes?.map((route) => {
+          if (route.key !== "edit") {
+            return <Link
+              className={activeRoute === route.path ? "link link-active" : "link"}
+              onClick={() => setActiveRoute(route.path)}
+              to={route.path}
+              key={route.key}>
+              {route.label}
+            </Link>;
+          } else {
+            return null;
+          }
+        }
       )}
     </aside>
   );

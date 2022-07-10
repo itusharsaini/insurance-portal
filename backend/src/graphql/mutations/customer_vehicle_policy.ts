@@ -5,7 +5,7 @@ export const updateCustomerPolicyVehicle = gql`
 		insert_customer_policy_vehicle(
 			objects: $objects,
 			on_conflict: {
-				constraint: customer_policy_vehicle_vehicle_id_policy_id_customer_id_key,
+				constraint: customer_policy_relation_pkey,
 				update_columns: [updated_at]
 			}
 		) {

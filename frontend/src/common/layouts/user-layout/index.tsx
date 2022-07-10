@@ -9,7 +9,7 @@ interface Props {
 
 const UserLayout: FC<Props> = memo(({children}) => {
   return (
-    <div className={'container'}>
+    <div className={'container-custom'}>
       <Header/>
       <Sidebar/>
       <div className={'content'}>

@@ -35,7 +35,7 @@ export const getPoliciesByID = gql`
 `;
 
 export const getPoliciesByPolicyID = gql`
-	query getPoliciesByPolicyID($policy_id: Int!) {
+	query getPoliciesByPolicyID($policy_id: String!) {
 		policies(where: {policy_id: {_eq: $policy_id}}) {
 			updated_at
 			property_damage_liability

@@ -1,5 +1,6 @@
 import Dashboard from "../../pages/dashboard";
 import Insurances from "../../pages/insurances";
+import InsuranceEdit from "../../pages/edit-insurances.tsx";
 
 interface Routes {
   isIndex?: boolean;
@@ -20,7 +21,12 @@ const routes: Routes[] = [{
   key:'insurances',
   path: "/insurances",
   label: 'Insurances',
-  page: Insurances
+  page: Insurances,
+},{
+  key:'edit',
+  path: "/insurances/:insuranceId",
+  label: 'Edit',
+  page: InsuranceEdit,
 }];
 
 export default routes;

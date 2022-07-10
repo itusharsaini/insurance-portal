@@ -6,9 +6,10 @@ export const insertPoliciesController = async (request: Request, response: Respo
   try {
     if (request && request.body) {
       const {object} = request.body;
+      console.log(object)
       if (!object) return response.status(400)
       .json({message: "BAD_REQUEST", status: 400, error: "Required Fields Not Found"});
-      const {data} = await insertDataService(updateCustomerPolicyVehicle, {object});
+      const {data} = await insertDataService(updateCustomerPolicyVehicle, {objects:object});
       return response.status(200).send(data);
     } else {
       return response.status(400).json({message: "BAD_REQUEST", status: 400, error: "Required Fields Not Found"});

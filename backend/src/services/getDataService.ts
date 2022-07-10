@@ -4,5 +4,5 @@ export const getDataService = async (query: any, variables: any) =>
   await apolloClient.query({
     query,
     variables,
-    fetchPolicy: "network-only"
+    fetchPolicy:"network-only"
   });
