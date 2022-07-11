@@ -3,18 +3,24 @@ import { getDataService } from "../../services/getDataService";
 import { getCustomerVehiclePolicy, getCustomerVehiclePolicyById } from "../../graphql/queries/customer_vehicle_policy";
 import { apolloClient } from "../../apolloClient";
 
+/**
+ * To get the policies form customer_vehicle_policy table from the database
+ * @description Gets the data from the table takes offset and limit for querying the data for pagination
+ * and formats the data and send the data as response
+ * @param request
+ * @param response
+ */
 export const getPoliciesDataController = async (request: Request, response: Response) => {
   try {
     if (request && request.query) {
       // @ts-ignore
       const {offset, limit} = request.query;
-      const{data} = await apolloClient.query({
-        query:getCustomerVehiclePolicy,
-        variables:{offset: Number(offset), limit: Number(limit)},
-        fetchPolicy:"network-only"
-      });
-      // const {data} = await getDataService(getCustomerVehiclePolicy, {offset: Number(offset), limit: Number(limit)});
+
+      //  querying the data
+      const {data} = await getDataService(getCustomerVehiclePolicy, {offset: Number(offset), limit: Number(limit)});
       const totalData = data.customer_policy_vehicle_aggregate.aggregate.count;
+
+      // formatting the data
       const insurances = data?.customer_policy_vehicle?.map((item: any) => ({
         id: item.id,
         policy_id: item.policy.policy_id,
@@ -33,6 +39,8 @@ export const getPoliciesDataController = async (request: Request, response: Resp
         region: item.customer.region.toUpperCase(),
         marital_status: item.customer.marital_status ? "Married" : "Unmarried"
       }));
+
+      // final object
       const res = {
         totalRecords: totalData,
         totalPages: totalData/Number(limit),
@@ -47,6 +55,11 @@ export const getPoliciesDataController = async (request: Request, response: Resp
   }
 };
 
+/**
+ * To get the insurance policy data from customer_vehicle_policy by customer_vehicle_policy record id(uuid)
+ * @param request
+ * @param response
+ */
 export const getPoliciesByIdController = async(request: Request, response: Response)=>{
   try{
     if(request && request.params){

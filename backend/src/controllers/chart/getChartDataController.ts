@@ -5,6 +5,12 @@ import moment from "moment";
 
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', "August", "September", "October", "November", "December"];
 
+/**
+ * To get the chart data in a formatted format from the database
+ * as {"January":{"north":10,"south":10,"east":10,west:"10"},...}
+ * @param request
+ * @param response
+ */
 export const getChartDataController = async (request: Request, response: Response) => {
   try {
     if (request && request.query) {
@@ -16,6 +22,7 @@ export const getChartDataController = async (request: Request, response: Respons
       const {data} = await getDataService(getCustomerVehiclePolicyByDate, {_gte: startDate, _lte: endDate});
       const chartObj: any = {};
 
+      // initialising chartObject
       months.forEach((mo) => {
         chartObj[mo] = {
           north: 0,
@@ -25,6 +32,7 @@ export const getChartDataController = async (request: Request, response: Respons
         };
       });
 
+      // formatting chart data and updating chartObj
       if (data && data.customer_policy_vehicle && data.customer_policy_vehicle.length) {
         data.customer_policy_vehicle.forEach((item: any) => {
           if (item && item.date_of_purchase) {

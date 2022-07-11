@@ -6,6 +6,13 @@ import { insertDataService } from "../../services/insertDataService";
 import moment from "moment";
 import { array_chunks } from "../../utils";
 
+/**
+ * To initially populate the data in the database in normalised tables
+ * @description Inserts data in customer_vehicle_policy, customer, policy and vehicle table,
+ * customer_vehicle_policy is the junction table b/w the 3 tables
+ * @param request
+ * @param response
+ */
 export const seedController = async (request: Request, response: Response) => {
   try {
     if (!request.file) {
@@ -51,8 +58,11 @@ export const seedController = async (request: Request, response: Response) => {
           };
         });
         response.status(200).send("SEEDED");
+
+        // dividing the data array into chunks of 300
         const chunks = array_chunks(newData, 300);
 
+        // mapping over the chunks and inserting one bye one
         const pr = chunks.map((chunk) => {
           return insertDataService(updateCustomerPolicyVehicle, {objects: chunk});
         });

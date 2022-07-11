@@ -2,6 +2,13 @@ import { Request, Response } from "express-serve-static-core";
 import { insertDataService } from "../../services/insertDataService";
 import { updateCustomerPolicyVehicle } from "../../graphql/mutations/customer_vehicle_policy";
 
+/**
+ * To insert and updated the customer_vehicle_policy record data into the database by id
+ * @description This method updates customer data, policy data and customer_vehicle_policy data with
+ * single mutation onConflict of the unique or primary key
+ * @param request
+ * @param response
+ */
 export const insertPoliciesController = async (request: Request, response: Response) => {
   try {
     if (request && request.body) {

@@ -13,6 +13,7 @@ const DashboardComponent: FC = memo(() => {
     getChartData().catch();
   }, []);
 
+  // getting the chart data for the year 2018 dataset only had the data of 2018
   const getChartData = async () => {
     const response = await fetch(`http://localhost:3001/chart/?startDate=2018-01-01&endDate=2018-12-21`);
     const data = await response.json();

@@ -45,7 +45,7 @@ const InsuranceEditComponent: FC = memo(() => {
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>, item: string) => {
     if (item === "premium" && Number(e.target.value) > 1000000) {
-      return setError({field: item, error: "Premium cannot be greater than 10,00,000"});
+      setError({field: item, error: "Premium cannot be greater than 10,00,000"});
     }
     setError({field: "", error: ""});
     setInsuranceData({...insuranceData, [item]: e.target.value});
@@ -54,35 +54,14 @@ const InsuranceEditComponent: FC = memo(() => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     setLoading(true);
     e.preventDefault();
-    const {
-            id,
-            vid,
-            premium,
-            bodily_injury_liability,
-            personal_injury_protection,
-            property_damage_liability,
-            collision,
-            comprehensive, gender,
-            income_group,
-            region,
-            marital_status,
-            policy_id,
-            customer_id,
-            date_of_purchase
-          } = insuranceData;
+    const {id, vid, premium, bodily_injury_liability, personal_injury_protection, property_damage_liability, collision, comprehensive, gender, income_group, region, marital_status, policy_id, customer_id, date_of_purchase} = insuranceData;
+
+    // creating the data object to update the data in the DB onConflict updates the data when a unique is encountered else would insert
     const object = {
       id,
       date_of_purchase,
       policy: {
-        data: {
-          policy_id,
-          premium,
-          bodily_injury_liability: bodily_injury_liability.toLowerCase() === "yes",
-          personal_injury_protection: personal_injury_protection.toLowerCase() === "yes",
-          property_damage_liability: property_damage_liability.toLowerCase() === "yes",
-          collision: collision.toLowerCase() === "yes",
-          comprehensive: comprehensive.toLowerCase() === "yes"
-        },
+        data: {policy_id, premium, bodily_injury_liability: bodily_injury_liability.toLowerCase() === "yes", personal_injury_protection: personal_injury_protection.toLowerCase() === "yes", property_damage_liability: property_damage_liability.toLowerCase() === "yes", collision: collision.toLowerCase() === "yes", comprehensive: comprehensive.toLowerCase() === "yes"},
         on_conflict: {
           constraint: "policies_policy_id_key",
           update_columns: ["premium",
@@ -94,13 +73,7 @@ const InsuranceEditComponent: FC = memo(() => {
         }
       },
       customer: {
-        data: {
-          customer_id,
-          gender,
-          income_group,
-          region,
-          marital_status: marital_status.toLowerCase() === "married"
-        },
+        data: {customer_id, gender, income_group, region, marital_status: marital_status.toLowerCase() === "married"},
         on_conflict: {
           constraint: "cutomers_customer_id_key", update_columns: ["gender",
             "income_group",
@@ -122,7 +95,7 @@ const InsuranceEditComponent: FC = memo(() => {
     <div>
       <form onSubmit={handleSubmit}>
         <div className={"mb-3"}>
-          <button type="submit" disabled={loading} className="btn btn-primary me-3">Save</button>
+          <button type="submit" disabled={loading || error.error.trim().length>0} className="btn btn-primary me-3">Save</button>
           <button type="button" className="btn btn-outline-secondary" onClick={() => navigate("/insurances", {replace: true})}>Cancel</button>
         </div>
         {Object.keys(insuranceData).filter(item => item !== "vid" && item!=="cid" && item!=="pid").map((item) => (
@@ -134,13 +107,11 @@ const InsuranceEditComponent: FC = memo(() => {
                    id={item} onChange={(e) => onChangeHandler(e, item)}
                    value={insuranceData[item]}
                    disabled={item === "id" || item === "date_of_purchase" || item === "policy_id" || item === "customer_id" || loading}/>
-            {error && error["field"] === item && error.error.trim().length &&
-			<p className={"text-danger"}>{error.error}</p>
-            }
+            {error && error["field"] === item && error.error.trim().length && <p className={"text-danger"}>{error.error}</p>}
           </div>
         ))}
         <div>
-          <button type="submit" disabled={loading} className="btn btn-primary me-3">Save</button>
+          <button type="submit" disabled={loading || error.error.trim().length>0} className="btn btn-primary me-3">Save</button>
           <button type="button" disabled={loading} className="btn btn-outline-secondary" onClick={() => navigate("/insurances", {replace: true})}>Cancel</button>
         </div>
       </form>
